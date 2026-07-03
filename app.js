@@ -200,18 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (menuToggle && nav) {
         menuToggle.addEventListener('click', () => {
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-            if (nav.style.display === 'flex') {
-                nav.style.flexDirection = 'column';
-                nav.style.position = 'absolute';
-                nav.style.top = '80px';
-                nav.style.left = '0';
-                nav.style.width = '100%';
-                nav.style.background = 'rgba(7, 8, 13, 0.95)';
-                nav.style.padding = '20px';
-                nav.style.borderBottom = '1px solid var(--border-glass)';
-                nav.style.gap = '16px';
-            }
+            nav.classList.toggle('open');
         });
     }
 });
