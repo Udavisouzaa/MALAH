@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MALAH - Envio Rápido e Seguro de Itens de Valor em Voos Nacionais</title>
+    <meta name="description" content="A MALAH conecta quem precisa enviar pequenos itens de valor com viajantes de avião em voos domésticos. Rápido, seguro e 100% brasileiro.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2.0">
+</head>
+<body>
+    <!-- Background Blur Decorative Elements -->
+    <div class="bg-blur bg-blur-1"></div>
+    <div class="bg-blur bg-blur-2"></div>
+    <div class="bg-blur bg-blur-3"></div>
+
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <span class="logo-accent">MA</span>LAH
+            </a>
+            <nav class="nav">
+                <a href="#como-funciona" class="nav-link">Como Funciona</a>
+                <a href="#calculadora" class="nav-link">Simular Envio</a>
+                <a href="#seguranca" class="nav-link">Segurança & ANAC</a>
+                <a href="#faq" class="nav-link">Dúvidas</a>
+                <a href="login.html" class="nav-link mobile-only">Acessar Conta</a>
+                <a href="login.html?mode=register" class="nav-link mobile-only">Cadastrar</a>
+            </nav>
+            <a href="#cadastro" class="btn btn-primary nav-btn" id="nav-cta-btn">Quero Viajar</a>
+            <div class="mobile-header-actions">
+                <a href="login.html" class="btn btn-secondary btn-sm mobile-login-btn" style="padding: 6px 12px; font-size: 12px;">Entrar</a>
+                <button class="mobile-menu-btn" aria-label="Menu" id="mobile-menu-toggle">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="badge">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="badge-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    100% Nacional, Seguro e Verificado
+                </div>
+                <h1 class="hero-title">Envie itens de valor com quem já vai viajar.</h1>
+                <p class="hero-subtitle">
+                    A MALAH conecta viajantes frequentes de voos nacionais a pessoas que precisam enviar encomendas de alto valor com urgência. Mesma velocidade do avião, com segurança física e verificação presencial.
+                </p>
+                <div class="hero-actions" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="#calculadora" class="btn btn-primary btn-lg" id="hero-primary-btn">Simular Envio</a>
+                    <a href="login.html" class="btn btn-outline btn-lg" style="color: white; border-color: rgba(255,255,255,0.2); background: rgba(0,0,0,0.2);">Acessar Conta</a>
+                    <a href="#como-funciona" class="btn btn-secondary btn-lg" id="hero-secondary-btn">Como Funciona</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Verificado</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24h</span>
+                        <span class="stat-label">Prazo Médio</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">R$ 0</span>
+                        <span class="stat-label">Taxa de Adesão</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lead Capture & Interactive Widget Column -->
+            <div class="hero-widget" id="cadastro">
+                <div class="widget-card glass">
+                    <div class="widget-tabs">
+                        <button class="tab-btn active" id="tab-sender" onclick="switchTab('sender')">Quero Enviar</button>
+                        <button class="tab-btn" id="tab-traveler" onclick="switchTab('traveler')">Vou Viajar</button>
+                    </div>
+                    
+                    <!-- Sender Form -->
+                    <form id="form-sender" class="widget-form active" onsubmit="handleFormSubmit(event, 'sender')">
+                        <h3 class="form-title">Envie com rapidez absoluta</h3>
+                        <p class="form-description">Cadastre o item que precisa enviar e receba propostas de viajantes ainda hoje.</p>
+                        
+                        <div class="form-group">
+                            <label for="sender-item-select">O que você quer enviar?</label>
+                            <select id="sender-item-select" required onchange="toggleOtherItemField('sender')">
+                                <option value="" disabled selected>Selecione um item</option>
+                                <option value="Documentos">Documentos</option>
+                                <option value="Chaves">Chaves</option>
+                                <option value="Presentes">Presentes</option>
+                                <option value="Comida Regional">Comida Regional</option>
+                                <option value="Roupas">Roupas</option>
+                                <option value="Eletrônicos Pequenos">Eletrônicos Pequenos</option>
+                                <option value="Outros">Outros...</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="sender-item-other-group" style="display: none;">
+                            <label for="sender-item-other">Especifique o item</label>
+                            <input type="text" id="sender-item-other" placeholder="Digite o que é">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sender-origin">Origem</label>
+                                <select id="sender-origin" required>
+                                    <option value="" disabled selected>Cidade/Aeroporto</option>
+                                    <option value="FLN">Florianópolis (FLN)</option>
+                                    <option value="CGH">São Paulo (CGH)</option>
+                                    <option value="GRU">São Paulo (GRU)</option>
+                                    <option value="SDU">Rio de Janeiro (SDU)</option>
+                                    <option value="BSB">Brasília (BSB)</option>
+                                    <option value="CNF">Belo Horizonte (CNF)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sender-dest">Destino</label>
+                                <select id="sender-dest" required>
+                                    <option value="" disabled selected>Cidade/Aeroporto</option>
+                                    <option value="CGH">São Paulo (CGH)</option>
+                                    <option value="SDU">Rio de Janeiro (SDU)</option>
+                                    <option value="FLN">Florianópolis (FLN)</option>
+                                    <option value="BSB">Brasília (BSB)</option>
+                                    <option value="GRU">São Paulo (GRU)</option>
+                                    <option value="CNF">Belo Horizonte (CNF)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sender-urgency">Velocidade de Envio</label>
+                            <select id="sender-urgency" required>
+                                <option value="comum">Comum (Até 3 dias)</option>
+                                <option value="urgente">Urgente (Mesmo Dia)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sender-contact">Seu WhatsApp</label>
+                            <input type="tel" id="sender-contact" placeholder="(48) 99999-9999" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block" id="sender-submit-btn">Achar Viajantes Disponíveis</button>
+                    </form>
+
+                    <!-- Traveler Form -->
+                    <form id="form-traveler" class="widget-form" onsubmit="handleFormSubmit(event, 'traveler')">
+                        <h3 class="form-title">Monetize sua mala</h3>
+                        <p class="form-description">Cadastre sua próxima viagem e ganhe dinheiro transportando itens com segurança.</p>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="traveler-origin">Origem</label>
+                                <select id="traveler-origin" required>
+                                    <option value="" disabled selected>Origem</option>
+                                    <option value="FLN">Florianópolis (FLN)</option>
+                                    <option value="CGH">São Paulo (CGH)</option>
+                                    <option value="GRU">São Paulo (GRU)</option>
+                                    <option value="SDU">Rio de Janeiro (SDU)</option>
+                                    <option value="BSB">Brasília (BSB)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="traveler-dest">Destino</label>
+                                <select id="traveler-dest" required>
+                                    <option value="" disabled selected>Destino</option>
+                                    <option value="CGH">São Paulo (CGH)</option>
+                                    <option value="SDU">Rio de Janeiro (SDU)</option>
+                                    <option value="FLN">Florianópolis (FLN)</option>
+                                    <option value="BSB">Brasília (BSB)</option>
+                                    <option value="GRU">São Paulo (GRU)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="traveler-date">Data do Voo</label>
+                            <input type="date" id="traveler-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="traveler-company">Companhia Aérea</label>
+                            <select id="traveler-company" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="LATAM">LATAM Airlines</option>
+                                <option value="GOL">GOL Linhas Aéreas</option>
+                                <option value="AZUL">Azul Linhas Aéreas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="traveler-contact">Seu WhatsApp</label>
+                            <input type="tel" id="traveler-contact" placeholder="(48) 99999-9999" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" id="traveler-submit-btn">Cadastrar Meu Voo</button>
+                    </form>
+                    
+                    <!-- Success State (Hidden by default) -->
+                    <div id="form-success" class="form-success-state">
+                        <div class="success-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="48" height="48" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="success-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <h3 class="success-title">Cadastro Concluído!</h3>
+                        <p class="success-message" id="success-text">Entraremos em contato via WhatsApp com as melhores oportunidades nas próximas horas.</p>
+                        <div class="success-actions" style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 10px;">
+                            <a id="btn-whatsapp-redirect" href="#" target="_blank" class="btn btn-primary" style="text-align: center;">Chamar no WhatsApp</a>
+                            <button type="button" class="btn btn-secondary" onclick="resetFormState()">Voltar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="como-funciona" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Como a MALAH funciona?</h2>
+                <p class="section-subtitle">Simples, prático e em total conformidade com as diretrizes de segurança.</p>
+            </div>
+            
+            <div class="workflow-tabs">
+                <button class="workflow-tab active" id="btn-flow-sender" onclick="toggleWorkflow('sender')">Para quem envia</button>
+                <button class="workflow-tab" id="btn-flow-traveler" onclick="toggleWorkflow('traveler')">Para quem viaja</button>
+            </div>
+
+            <!-- Workflow Sender Grid -->
+            <div class="workflow-grid active" id="flow-sender">
+                <div class="card glass step-card">
+                    <div class="step-num">01</div>
+                    <h3 class="card-title">Cadastre sua Encomenda</h3>
+                    <p class="card-text">Indique o item de valor, a rota nacional desejada e o valor estimado do produto para cálculo da taxa de manuseio.</p>
+                </div>
+                <div class="card glass step-card">
+                    <div class="step-num">02</div>
+                    <h3 class="card-title">Aceite um Viajante</h3>
+                    <p class="card-text">Nossa plataforma conecta você a um viajante verificado que irá embarcar exatamente no voo e dia que você precisa.</p>
+                </div>
+                <div class="card glass step-card">
+                    <div class="step-num">03</div>
+                    <h3 class="card-title">Encontro e Lacre</h3>
+                    <p class="card-text">Vocês se encontram no saguão do aeroporto. O viajante inspeciona o item e ambos fecham o pacote com nosso lacre inviolável numerado.</p>
+                </div>
+                <div class="card glass step-card">
+                    <div class="step-num">04</div>
+                    <h3 class="card-title">Entrega e Pagamento</h3>
+                    <p class="card-text">O viajante decola. Ao pousar no destino, ele entrega o item lacrado para o destinatário. O pagamento é liberado via Pix.</p>
+                </div>
+            </div>
+
+            <!-- Workflow Traveler Grid (Hidden initially) -->
+            <div class="workflow-grid" id="flow-traveler">
+                <div class="card glass step-card">
+                    <div class="step-num">01</div>
+                    <h3 class="card-title">Publique seu Voo</h3>
+                    <p class="card-text">Cadastre a origem, destino, data e companhia aérea do seu voo doméstico na nossa plataforma.</p>
+                </div>
+                <div class="card glass step-card">
+                    <div class="step-num">02</div>
+                    <h3 class="card-title">Receba Ofertas</h3>
+                    <p class="card-text">Selecione solicitações de envio que caibam na sua bagagem de mão e que ofereçam boas recompensas financeiras.</p>
+                </div>
+                <div class="card glass step-card">
+                    <div class="step-num">03</div>
+                    <h3 class="card-title">Inspecione e Proteja</h3>
+                    <p class="card-text">No aeroporto de partida, confira pessoalmente o item de valor para garantir que está de acordo com a ANAC, e lacre o pacote.</p>
+                </div>
+                <div class="card glass step-card">
+                    <div class="step-num">04</div>
+                    <h3 class="card-title">Pouse e Fature</h3>
+                    <p class="card-text">Entregue a encomenda no aeroporto de destino e receba a recompensa diretamente na sua conta bancária na mesma hora.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculadora" class="section bg-light-section">
+        <div class="container calc-container">
+            <div class="calc-grid glass">
+                <div class="calc-inputs">
+                    <h2 class="section-title text-left">Simulador de Custos e Ganhos</h2>
+                    <p class="section-subtitle text-left">Descubra em tempo real quanto custa enviar ou quanto você pode lucrar na sua viagem.</p>
+                    
+                    <div class="form-group">
+                        <label for="calc-route">Selecione a Rota Aérea</label>
+                        <select id="calc-route" onchange="calculateEstimates()">
+                            <option value="FLN-CGH">Florianópolis (FLN) ➔ São Paulo (CGH)</option>
+                            <option value="CGH-SDU">São Paulo (CGH) ➔ Rio de Janeiro (SDU)</option>
+                            <option value="FLN-SDU">Florianópolis (FLN) ➔ Rio de Janeiro (SDU)</option>
+                            <option value="GRU-BSB">São Paulo (GRU) ➔ Brasília (BSB)</option>
+                            <option value="CGH-FLN">São Paulo (CGH) ➔ Florianópolis (FLN)</option>
+                            <option value="BSB-FLN">Brasília (BSB) ➔ Florianópolis (FLN)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calc-urgency">Urgência do Envio</label>
+                        <select id="calc-urgency" onchange="calculateEstimates()">
+                            <option value="comum">Envio Comum (Até 3 dias)</option>
+                            <option value="urgente">Envio Urgente (Mesmo Dia)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <div class="result-box">
+                        <div class="result-title">Estimativa para o Remetente</div>
+                        <div class="result-main-value" id="calc-sender-cost">R$ 148,00</div>
+                        <p class="result-description">Custo total tabelado para o serviço (inclui taxas operacionais).</p>
+                        <div class="badge-mini" id="calc-speed-badge">Velocidade: Até 3 dias</div>
+                    </div>
+
+                    <div class="result-box highlighted">
+                        <div class="result-title text-accent">Ganhos do Viajante</div>
+                        <div class="result-main-value text-accent" id="calc-traveler-reward">R$ 87,00</div>
+                        <p class="result-description">A recompensa limpa depositada no seu Pix logo após a entrega do item verificado.</p>
+                        <div class="badge-mini badge-cyan">Ajuda a pagar a passagem</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security & ANAC Compliance Section -->
+    <section id="seguranca" class="section">
+        <div class="container security-grid">
+            <div class="security-image-col">
+                <div class="security-card-visual glass">
+                    <div class="security-badge">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--accent-cyan)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        Segurança Máxima
+                    </div>
+                    <div class="visual-lacre">
+                        <span class="lacre-line"></span>
+                        <div class="lacre-seal">MALAH SEAL #BR-9842</div>
+                        <span class="lacre-line"></span>
+                    </div>
+                    <p class="visual-desc">Lacre inviolável numerado e assinado digitalmente pelas duas partes no aeroporto.</p>
+                </div>
+            </div>
+            <div class="security-content">
+                <h2 class="section-title text-left">Nosso Pilar é a Segurança Completa</h2>
+                <p class="section-subtitle text-left">Desenvolvemos protocolos rígidos para que tanto o remetente quanto o viajante se sintam totalmente protegidos.</p>
+                
+                <div class="security-features">
+                    <div class="sec-feature">
+                        <div class="sec-icon-box">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                        </div>
+                        <div>
+                            <h4>Inspeção Obrigatória Pessoal</h4>
+                            <p>O viajante inspeciona visualmente o item no ponto de encontro. Nunca leve embalagens fechadas. Amigos do alheio e itens proibidos pela ANAC ficam de fora.</p>
+                        </div>
+                    </div>
+                    <div class="sec-feature">
+                        <div class="sec-icon-box">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                        <div>
+                            <h4>Lacre Numerado Inviolável</h4>
+                            <p>Após a verificação, o item é guardado em um envelope de segurança co-extrusado com lacre numerado e inviolável, que só poderá ser rompido pelo destinatário no desembarque.</p>
+                        </div>
+                    </div>
+                    <div class="sec-feature">
+                        <div class="sec-icon-box">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <div>
+                            <h4>Transação P2P Colaborativa</h4>
+                            <p>A MALAH facilita a conexão entre usuários qualificados. O transporte é realizado sob acordo mútuo e responsabilidade direta estabelecida entre remetente e viajante.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section bg-light-section">
+        <div class="container faq-container">
+            <div class="section-header">
+                <h2 class="section-title">Dúvidas Frequentes</h2>
+                <p class="section-subtitle">Tudo o que você precisa saber sobre a segurança e operação da MALAH.</p>
+            </div>
+
+            <div class="faq-list">
+                <details class="faq-item glass">
+                    <summary class="faq-question">É legal perante a ANAC e Polícia Federal?</summary>
+                    <div class="faq-answer">
+                        <p>Sim! A ANAC proíbe o transporte de pacotes fechados de desconhecidos por motivos óbvios de segurança. O protocolo da MALAH exige que o próprio viajante examine o item aberto antes de aceitá-lo e o lacre juntamente com o remetente. O viajante sabe exatamente o que está carregando na sua bagagem de mão.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item glass">
+                    <summary class="faq-question">Quais tipos de itens posso enviar pela MALAH?</summary>
+                    <div class="faq-answer">
+                        <p>Focamos em pequenos objetos de alto valor e urgência: smartphones, laptops, relógios, cartões, chaves de veículos, peças de reposição críticas ou documentos confidenciais. Não são permitidos líquidos, inflamáveis, substâncias ilícitas ou armas.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item glass">
+                    <summary class="faq-question">A MALAH oferece seguro ou reembolso por danos e extravios?</summary>
+                    <div class="faq-answer">
+                        <p>Não. A MALAH é uma plataforma de tecnologia que conecta viajantes a remetentes, funcionando como um canal de intermediação (marketplace). Não oferecemos seguro de carga e não nos responsabilizamos pelos itens transportados. A inspeção presencial, verificação de segurança no aeroporto e o compromisso de entrega cabem integralmente às duas partes.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item glass">
+                    <summary class="faq-question">Como e onde o remetente e o viajante se encontram?</summary>
+                    <div class="faq-answer">
+                        <p>O encontro inicial ocorre em um ponto movimentado e seguro dentro do próprio aeroporto de origem (próximo à área de check-in). A entrega final ocorre na área de desembarque público do aeroporto de destino, garantindo segurança total para ambas as partes.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <span class="logo logo-footer"><span class="logo-accent">MA</span>LAH</span>
+                <p>O jeito brasileiro de compartilhar bagagem e acelerar entregas aéreas.</p>
+                <div class="footer-credit">Florianópolis, Santa Catarina 🏝️</div>
+            </div>
+            <div class="footer-links">
+                <h4>Navegação</h4>
+                <a href="#como-funciona">Como funciona</a>
+                <a href="#calculadora">Simulador de Frete</a>
+                <a href="#seguranca">Termos de Segurança</a>
+            </div>
+            <div class="footer-links">
+                <h4>Para Você</h4>
+                <a href="#cadastro" onclick="switchTab('sender')">Enviar encomenda</a>
+                <a href="#cadastro" onclick="switchTab('traveler')">Cadastrar voo</a>
+                <a href="mailto:contato@malah.com.br">Suporte comercial</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 MALAH. Todos os direitos reservados. Feito com foco em segurança.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase CDN and Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js"></script>
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

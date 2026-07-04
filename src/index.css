@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  
+  --color-brand-purple: #7c3aed;
+  --color-brand-neon: #6d28d9;
+  --color-brand-glow: #a78bfa;
+  --color-brand-cyan: #38bdf8;
+  
+  --color-bg-darker: #050508;
+  --color-bg-dark: #0a0a10;
+  --color-bg-card: rgba(10, 10, 16, 0.4);
+}
+
+/* Custom premium styles */
+.glass-panel {
+  background: rgba(10, 10, 16, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(10, 10, 16, 0.65);
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 12px 40px 0 rgba(124, 58, 237, 0.15);
+  transform: translateY(-2px);
+}
+
+.glow-text {
+  text-shadow: 0 0 15px rgba(167, 139, 250, 0.4);
+}
+
+.glow-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.35);
+  transition: all 0.2s ease-in-out;
+}
+.glow-btn:hover {
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.55);
+  transform: scale(1.02);
+}
+
+.glow-border {
+  border: 1px solid rgba(124, 58, 237, 0.25);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
