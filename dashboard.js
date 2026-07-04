@@ -200,7 +200,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (oppositeData && oppositeData.length > 0) {
             const matches = [];
             oppositeData.forEach(opp => {
-                const myMatch = data.find(my => my.origin === opp.origin && my.dest === opp.dest);
+                // Matchmaking Aberto: Permite qualquer match independente de aeroporto (Fase 7)
+                const myMatch = data.length > 0 ? data[0] : null; 
                 if (myMatch) {
                     matches.push({ opp, myMatch });
                 }

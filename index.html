@@ -28,6 +28,8 @@
                 <a href="#calculadora" class="nav-link">Simular Envio</a>
                 <a href="#seguranca" class="nav-link">Segurança & ANAC</a>
                 <a href="#faq" class="nav-link">Dúvidas</a>
+                <a href="login.html" class="nav-link mobile-only">Acessar Conta</a>
+                <a href="login.html?mode=register" class="nav-link mobile-only">Cadastrar</a>
             </nav>
             <a href="#cadastro" class="btn btn-primary nav-btn" id="nav-cta-btn">Quero Viajar</a>
             <button class="mobile-menu-btn" aria-label="Menu" id="mobile-menu-toggle">
@@ -277,8 +279,8 @@
                     <div class="form-group">
                         <label for="calc-value">Valor Estimado do Item (R$)</label>
                         <div class="range-slider-wrapper">
-                            <input type="range" id="calc-value" min="500" max="15000" step="500" value="3000" oninput="updateRangeValue(this.value); calculateEstimates()">
-                            <span class="range-value-indicator" id="range-val-display">R$ 3.000</span>
+                            <input type="range" id="calc-value" min="50" max="1000" step="50" value="500" oninput="updateRangeValue(this.value); calculateEstimates()">
+                            <span class="range-value-indicator" id="range-val-display">R$ 500</span>
                         </div>
                     </div>
                 </div>
@@ -286,14 +288,14 @@
                 <div class="calc-results">
                     <div class="result-box">
                         <div class="result-title">Estimativa para o Remetente</div>
-                        <div class="result-main-value" id="calc-sender-cost">R$ 180,00</div>
-                        <p class="result-description">Custo total aproximado (incluindo taxa de facilitação para item de R$ <span id="calc-coverage">3.000</span>).</p>
+                        <div class="result-main-value" id="calc-sender-cost">R$ 148,00</div>
+                        <p class="result-description">Custo total aproximado (incluindo taxa de facilitação para item de R$ <span id="calc-coverage">500</span>).</p>
                         <div class="badge-mini">Velocidade: Mesmo Dia</div>
                     </div>
 
                     <div class="result-box highlighted">
                         <div class="result-title text-accent">Ganhos do Viajante</div>
-                        <div class="result-main-value text-accent" id="calc-traveler-reward">R$ 120,00</div>
+                        <div class="result-main-value text-accent" id="calc-traveler-reward">R$ 87,00</div>
                         <p class="result-description">A recompensa limpa depositada no seu Pix logo após a entrega do item verificado.</p>
                         <div class="badge-mini badge-cyan">Ajuda a pagar a passagem</div>
                     </div>

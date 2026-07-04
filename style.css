@@ -173,6 +173,10 @@ a {
     cursor: pointer;
 }
 
+.mobile-only {
+    display: none !important;
+}
+
 /* Buttons */
 .btn {
     display: inline-flex;
@@ -1026,6 +1030,15 @@ input[type=range]::-webkit-slider-thumb:hover {
     
     .mobile-menu-btn {
         display: block;
+    }
+    
+    .mobile-only {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-sm);
     }
     
     .nav-btn {
