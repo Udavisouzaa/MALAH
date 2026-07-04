@@ -110,7 +110,7 @@ async function handleFormSubmit(event, formType) {
         const value = document.getElementById('sender-value').value;
         const contact = document.getElementById('sender-contact').value;
 
-        leadData = { type: 'sender', item, origin, dest, value, contact, timestamp: new Date().toISOString() };
+        leadData = { type: 'sender', item, origin, dest, value, contact };
         successMessageText = `Cadastro feito com sucesso! Encontramos viajantes ativos de ${origin} para ${dest}. Você será redirecionado para o WhatsApp para combinar os detalhes.`;
     } else {
         const origin = document.getElementById('traveler-origin').value;
@@ -119,7 +119,7 @@ async function handleFormSubmit(event, formType) {
         const company = document.getElementById('traveler-company').value;
         const contact = document.getElementById('traveler-contact').value;
 
-        leadData = { type: 'traveler', origin, dest, date, company, contact, timestamp: new Date().toISOString() };
+        leadData = { type: 'traveler', origin, dest, date, company, contact };
         successMessageText = `Voo cadastrado! Já temos envios agendados de ${origin} para ${dest} na companhia ${company}. Você será redirecionado para o WhatsApp para ver as encomendas.`;
     }
 
