@@ -55,6 +55,8 @@ async function salvarNovoRegistro(event) {
     const dest = document.getElementById('modal-dest').value;
     const contact = document.getElementById('modal-contact').value;
 
+    const session = JSON.parse(localStorage.getItem('malah_session') || '{}');
+
     let leadData = {};
     if (currentUserType === 'sender') {
         const item = document.getElementById('modal-item').value;
