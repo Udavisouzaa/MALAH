@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MALAH - Pagamento Seguro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+
+    <div class="dashboard-layout">
+        <!-- Main Content (Centered) -->
+        <main class="dashboard-main" style="align-items: center; justify-content: center; padding-top: 60px;">
+            
+            <div class="data-section glass" style="max-width: 500px; width: 100%;">
+                <h2 style="text-align: center; margin-bottom: 20px;">Pagamento em Custódia</h2>
+                <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; line-height: 1.5;">
+                    O valor ficará retido com segurança pela MALAH (Escrow). O viajante só recebe o dinheiro após a entrega confirmada pelo recebedor no destino final.
+                </p>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: var(--border-radius-md); margin-bottom: 30px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Frete Acordado</span>
+                        <strong>R$ 150,00</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Taxa MALAH (Seguro + Conexão)</span>
+                        <strong>R$ 22,50</strong>
+                    </div>
+                    <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; font-size: 20px;">
+                        <span>Total a Pagar</span>
+                        <strong class="text-accent">R$ 172,50</strong>
+                    </div>
+                </div>
+
+                <form style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="form-group">
+                        <label>Número do Cartão de Crédito</label>
+                        <input type="text" class="form-input" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Validade</label>
+                            <input type="text" class="form-input" placeholder="MM/AA">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>CVC</label>
+                            <input type="text" class="form-input" placeholder="123">
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" style="margin-top: 10px;" onclick="alert('Pagamento aprovado e valor retido na MALAH Escrow! O match está oficialmente selado.'); window.location.href='dashboard.html';">Pagar R$ 172,50 Seguramente</button>
+                    <button type="button" class="btn btn-outline" onclick="window.history.back();">Cancelar e Voltar para o Chat</button>
+                </form>
+            </div>
+            
+        </main>
+    </div>
+</body>
+</html>

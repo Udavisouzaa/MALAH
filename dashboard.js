@@ -2,6 +2,10 @@
    MALAH DASHBOARD LOGIC
    ========================================================================== */
 
+function iniciarChat(matchId) {
+    window.location.href = `chat.html?match=${matchId}`;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Auth Guard
     const sessionStr = localStorage.getItem('malah_session');
@@ -89,6 +93,58 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     } else {
         tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Nenhum registro encontrado.</td></tr>`;
+    }
+
+    // --- MATCHMAKING LOGIC ---
+    const matchesSection = document.getElementById('matches-section');
+    const matchesBody = document.getElementById('matches-body');
+    const navMatches = document.getElementById('nav-matches');
+
+    if (navMatches) {
+        navMatches.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('nav-records').classList.remove('active');
+            navMatches.classList.add('active');
+            matchesSection.style.display = 'block';
+        });
+        
+        document.getElementById('nav-records').addEventListener('click', (e) => {
+            e.preventDefault();
+            navMatches.classList.remove('active');
+            document.getElementById('nav-records').classList.add('active');
+            matchesSection.style.display = 'none';
+        });
+    }
+
+    if (data && data.length > 0) {
+        const oppositeType = userType === 'sender' ? 'traveler' : 'sender';
+        const resultOpp = await db.listarRegistros(oppositeType);
+        const oppositeData = resultOpp.data || [];
+        
+        if (oppositeData && oppositeData.length > 0) {
+            const matches = oppositeData.filter(opp => {
+                return data.some(my => my.origin === opp.origin && my.dest === opp.dest);
+            });
+
+            if (matches.length > 0) {
+                matchesBody.innerHTML = '';
+                matches.forEach(match => {
+                    const tr = document.createElement('tr');
+                    const desc = oppositeType === 'sender' ? (match.item || 'Pacote de Valor') : `Voo: ${match.date}`;
+                    tr.innerHTML = `
+                        <td><strong>${desc}</strong></td>
+                        <td>${match.origin}</td>
+                        <td>${match.dest}</td>
+                        <td><button class="btn btn-sm btn-primary" onclick="iniciarChat('${match.id}')">Iniciar Chat</button></td>
+                    `;
+                    matchesBody.appendChild(tr);
+                });
+            } else {
+                matchesBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Nenhum match encontrado no momento. Avisaremos quando surgir!</td></tr>`;
+            }
+        } else {
+            matchesBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Nenhum match encontrado no momento. Avisaremos quando surgir!</td></tr>`;
+        }
     }
 
     // Logout Logic

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MALAH - Verificação KYC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar glass">
+            <div class="sidebar-logo">
+                <span class="logo-text">MALAH</span>
+                <span class="badge">Segurança</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                    Voltar ao Painel
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <h1 id="page-title">Verificação de Identidade (KYC)</h1>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="data-section glass" style="max-width: 600px;">
+                    <p style="color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">
+                        Para garantir a segurança de todos na MALAH, precisamos confirmar sua identidade de acordo com as normas de segurança civil e aeroportuária. Nenhuma transação pode ser completada sem a verificação da conta.
+                    </p>
+                    
+                    <form id="kyc-form" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="form-group">
+                            <label>Documento de Identidade (Frente e Verso)</label>
+                            <div style="border: 2px dashed var(--border-focus); padding: 30px; text-align: center; border-radius: var(--border-radius-md); background: rgba(0,0,0,0.2); cursor: pointer; transition: all 0.2s;">
+                                📸 Tirar foto do RG, CNH ou Passaporte
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Selfie Segurando o Documento</label>
+                            <div style="border: 2px dashed var(--border-focus); padding: 30px; text-align: center; border-radius: var(--border-radius-md); background: rgba(0,0,0,0.2); cursor: pointer; transition: all 0.2s;">
+                                🤳 Tirar uma Selfie
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary" style="margin-top: 10px;" onclick="alert('Documentos enviados com sucesso! A análise levará cerca de 10 minutos. Enviaremos uma notificação no seu e-mail.'); window.location.href='dashboard.html';">Enviar para Análise de Segurança</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
