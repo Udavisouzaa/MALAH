@@ -3,9 +3,22 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Determine user type from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const userType = urlParams.get('userType') || 'sender'; // Default to sender
+    // Auth Guard
+    const sessionStr = localStorage.getItem('malah_session');
+    if (!sessionStr) {
+        window.location.href = 'login.html';
+        return;
+    }
+    const session = JSON.parse(sessionStr);
+
+    // Determine user type from session
+    const userType = session.type || 'sender';
+    
+    // Update Profile Name
+    const pageTitle = document.getElementById('page-title');
+    if (pageTitle && session.name) {
+        pageTitle.textContent = `Olá, ${session.name.split(' ')[0]}`;
+    }
 
     // UI Elements
     const badge = document.getElementById('user-role-badge');
@@ -76,5 +89,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     } else {
         tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Nenhum registro encontrado.</td></tr>`;
+    }
+
+    // Logout Logic
+    const logoutBtn = document.querySelector('.nav-logout');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('malah_session');
+            window.location.href = 'index.html';
+        });
     }
 });
