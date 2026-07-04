@@ -231,39 +231,62 @@
 @media (max-width: 992px) {
     .dashboard-layout {
         flex-direction: column;
+        padding-bottom: 70px; /* Space for bottom nav */
     }
     
     .sidebar {
         width: 100%;
-        height: auto;
-        position: relative;
+        height: 70px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
         flex-direction: row;
         align-items: center;
-        padding: 15px 20px;
+        padding: 0;
         border-right: none;
-        border-bottom: 1px solid var(--border-glass);
-        z-index: 10;
+        border-top: 1px solid var(--border-glass);
+        z-index: 100;
         background: rgba(7, 8, 13, 0.95);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
     }
     
     .sidebar-logo {
-        margin-bottom: 0;
-        padding: 0;
+        display: none;
     }
     
     .sidebar-nav {
         flex-direction: row;
-        margin-left: auto;
-        padding: 0;
+        width: 100%;
+        justify-content: space-around;
+        padding: 0 10px;
     }
     
     .nav-item {
-        padding: 8px 12px;
+        flex-direction: column;
+        padding: 8px;
+        gap: 4px;
+        flex: 1;
+        justify-content: center;
+        text-align: center;
     }
     
     .nav-item span {
-        display: none; /* Hide text on mobile */
+        display: block;
+        font-size: 10px;
+        line-height: 1;
+    }
+    
+    .nav-item svg {
+        margin: 0 auto;
+    }
+    
+    .badge {
+        display: none !important; /* hide badge in bottom nav to save space */
+    }
+    
+    .nav-logout {
+        margin-top: 0;
     }
     
     .dashboard-main {
@@ -272,5 +295,66 @@
     
     .stats-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    /* Table to Cards */
+    .data-table, .data-table tbody, .data-table tr, .data-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .data-table thead {
+        display: none;
+    }
+    
+    .data-table tr {
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border-glass);
+        border-radius: var(--border-radius-md);
+        padding: 15px;
+    }
+    
+    .data-table td {
+        border: none;
+        padding: 8px 0;
+        text-align: left;
+    }
+    
+    /* Card internal styling using nth-child */
+    .data-table td:nth-child(1) {
+        font-size: 16px;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        margin-bottom: 8px;
+        padding-bottom: 12px;
+    }
+    
+    .data-table td:nth-child(2)::before {
+        content: "Origem: ";
+        color: var(--text-muted);
+        font-size: 12px;
+        margin-right: 5px;
+    }
+    
+    .data-table td:nth-child(3)::before {
+        content: "Destino: ";
+        color: var(--text-muted);
+        font-size: 12px;
+        margin-right: 5px;
+    }
+    
+    .data-table td:nth-child(4) {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
     }
 }
