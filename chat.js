@@ -1,8 +1,8 @@
 /* ==========================================================================
-   MALAH CHAT LOGIC
+   MALAH REAL-TIME CHAT LOGIC
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Auth Guard
     const sessionStr = localStorage.getItem('malah_session');
     if (!sessionStr) {
@@ -11,21 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const session = JSON.parse(sessionStr);
 
-    // Get match info
     const urlParams = new URLSearchParams(window.location.search);
-    const matchId = urlParams.get('match');
+    const matchId = urlParams.get('match') || 'demo_match';
     
     const partnerNameEl = document.getElementById('chat-partner-name');
     const messagesEl = document.getElementById('chat-messages');
     const form = document.getElementById('chat-form');
     const input = document.getElementById('chat-input');
 
-    // Simulate Partner Name
     const partnerName = session.type === 'sender' ? 'Viajante Verificado' : 'Remetente Verificado';
     partnerNameEl.textContent = partnerName;
 
-    // Load initial messages
-    const addMessage = (text, type) => {
+    // Helper to render message
+    const renderMessage = (text, type) => {
         const div = document.createElement('div');
         div.className = `message ${type}`;
         div.textContent = text;
@@ -33,27 +31,35 @@ document.addEventListener('DOMContentLoaded', () => {
         messagesEl.scrollTop = messagesEl.scrollHeight;
     };
 
-    setTimeout(() => {
-        addMessage(`Olá! O sistema da MALAH conectou nossa viagem/envio. Podemos combinar os detalhes da entrega no aeroporto?`, 'received');
-    }, 500);
-    
-    if (session.type === 'traveler') {
-        setTimeout(() => {
-            addMessage('Eu chego no aeroporto com 2 horas de antecedência. Podemos nos encontrar no portão de embarque para fazermos o lacre de segurança da ANAC e tirar a foto?', 'received');
-        }, 2000);
+    // Load history from Supabase
+    async function carregarMensagens() {
+        const { data, error } = await db.buscarMensagens(matchId);
+        if (data && data.length > 0) {
+            // Clear mock messages, keep the system warning
+            messagesEl.innerHTML = '<div class="message system">O chat MALAH é criptografado. Nunca transfira valores fora da plataforma.</div>';
+            
+            data.forEach(msg => {
+                const type = msg.sender_id === session.id ? 'sent' : 'received';
+                renderMessage(msg.text, type);
+            });
+        }
     }
 
-    form.addEventListener('submit', (e) => {
+    await carregarMensagens();
+
+    // Polling for new messages (Since we don't have Supabase Realtime enabled by default)
+    setInterval(carregarMensagens, 3000);
+
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const text = input.value.trim();
         if (text) {
-            addMessage(text, 'sent');
+            // Optimistic UI update
+            renderMessage(text, 'sent');
             input.value = '';
             
-            // Mock auto-reply
-            setTimeout(() => {
-                addMessage('Perfeito! Aguardando você realizar o pagamento de garantia na plataforma para fecharmos negócio de forma segura.', 'received');
-            }, 2500);
+            // Send to DB
+            await db.enviarMensagem(matchId, session.id, text);
         }
     });
 });

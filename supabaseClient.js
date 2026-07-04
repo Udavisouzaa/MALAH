@@ -62,5 +62,17 @@ const db = {
             .order('created_at', { ascending: false });
             
         return { data, error };
+    },
+    
+    // Enviar mensagem no chat
+    async enviarMensagem(matchId, senderId, text) {
+        if (!supabaseClient) return { data: null, error: null };
+        return await supabaseClient.from('messages').insert([{ match_id: matchId, sender_id: senderId, text }]);
+    },
+
+    // Buscar mensagens do chat
+    async buscarMensagens(matchId) {
+        if (!supabaseClient) return { data: [], error: null };
+        return await supabaseClient.from('messages').select('*').eq('match_id', matchId).order('created_at', { ascending: true });
     }
 };

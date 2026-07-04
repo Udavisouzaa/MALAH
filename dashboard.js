@@ -2,8 +2,81 @@
    MALAH DASHBOARD LOGIC
    ========================================================================== */
 
+let currentUserType = 'sender';
+
 function iniciarChat(matchId) {
     window.location.href = `chat.html?match=${matchId}`;
+}
+
+// Modal Logic
+function abrirModalNovo() {
+    document.getElementById('modal-novo').style.display = 'flex';
+    const dynamicFields = document.getElementById('modal-dynamic-fields');
+    const title = document.getElementById('modal-title');
+    
+    if (currentUserType === 'sender') {
+        title.textContent = 'Novo Envio de Encomenda';
+        dynamicFields.innerHTML = `
+            <div class="form-group">
+                <label>Item a ser enviado</label>
+                <input type="text" id="modal-item" class="form-input" placeholder="Ex: Chaves do carro" required>
+            </div>
+            <div class="form-group">
+                <label>Valor Declarado (R$)</label>
+                <input type="number" id="modal-value" class="form-input" placeholder="1000" required>
+            </div>
+        `;
+    } else {
+        title.textContent = 'Cadastrar Novo Voo';
+        dynamicFields.innerHTML = `
+            <div class="form-group">
+                <label>Data do Voo</label>
+                <input type="date" id="modal-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label>Companhia Aérea</label>
+                <input type="text" id="modal-company" class="form-input" placeholder="Ex: LATAM" required>
+            </div>
+        `;
+    }
+}
+
+function fecharModalNovo() {
+    document.getElementById('modal-novo').style.display = 'none';
+}
+
+async function salvarNovoRegistro(event) {
+    event.preventDefault();
+    const btn = document.getElementById('modal-submit-btn');
+    btn.textContent = 'Salvando...';
+    btn.disabled = true;
+
+    const origin = document.getElementById('modal-origin').value;
+    const dest = document.getElementById('modal-dest').value;
+    const contact = document.getElementById('modal-contact').value;
+
+    let leadData = {};
+    if (currentUserType === 'sender') {
+        const item = document.getElementById('modal-item').value;
+        const value = document.getElementById('modal-value').value;
+        leadData = { type: 'sender', origin, dest, contact, item, value };
+    } else {
+        const date = document.getElementById('modal-date').value;
+        const company = document.getElementById('modal-company').value;
+        leadData = { type: 'traveler', origin, dest, contact, date, company };
+    }
+
+    const { error } = await db.salvarLead(leadData, currentUserType);
+    
+    if (error) {
+        alert("Erro ao salvar: " + error.message);
+        btn.textContent = 'Salvar Registro';
+        btn.disabled = false;
+        return;
+    }
+
+    fecharModalNovo();
+    window.location.reload(); // Recarrega para mostrar na tabela
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -17,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Determine user type from session
     const userType = session.type || 'sender';
+    currentUserType = userType;
     
     // Update Profile Name
     const pageTitle = document.getElementById('page-title');
