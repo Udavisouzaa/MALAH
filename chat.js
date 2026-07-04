@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await carregarMensagens();
 
-    // Polling for new messages (Since we don't have Supabase Realtime enabled by default)
+    // Polling for new messages
     setInterval(carregarMensagens, 3000);
 
     form.addEventListener('submit', async (e) => {
@@ -59,7 +59,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             input.value = '';
             
             // Send to DB
-            await db.enviarMensagem(matchId, session.id, text);
+            const result = await db.enviarMensagem(matchId, session.id, text);
+            if (result && result.error) {
+                alert("Erro ao enviar mensagem: " + result.error.message);
+                console.error(result.error);
+            }
         }
     });
 });

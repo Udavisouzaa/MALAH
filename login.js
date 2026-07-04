@@ -51,25 +51,23 @@ async function handleAuth(event) {
             const type = document.getElementById('auth-type').value;
             
             // Mock Register Session
-            const userSession = { email, name, type, id: 'user_' + Date.now() };
+            const userSession = { email, name, type, id: 'user_' + Math.random().toString(36).substr(2, 9) };
             localStorage.setItem('malah_session', JSON.stringify(userSession));
             
-            window.location.href = `dashboard.html?userType=${type}`;
+            window.location.href = `dashboard.html`;
         } else {
             // Mock Login
             if (email && password) {
-                let type = 'sender'; // Default
-                const existingSession = localStorage.getItem('malah_session');
+                // Generates a new session for the logged in user
+                const userSession = { 
+                    email, 
+                    name: email.split('@')[0], // Usa o início do email como nome
+                    type: 'sender', // Default mock type
+                    id: 'user_' + Math.random().toString(36).substr(2, 9) 
+                };
+                localStorage.setItem('malah_session', JSON.stringify(userSession));
                 
-                if (existingSession) {
-                    const session = JSON.parse(existingSession);
-                    type = session.type || 'sender';
-                } else {
-                    // Create dummy session if none exists to let them in for demo
-                    localStorage.setItem('malah_session', JSON.stringify({ email, name: 'Usuário Demo', type, id: 'user_demo' }));
-                }
-                
-                window.location.href = `dashboard.html?userType=${type}`;
+                window.location.href = `dashboard.html`;
             } else {
                 errorMsg.textContent = 'E-mail e senha são obrigatórios.';
                 btnSubmit.disabled = false;
