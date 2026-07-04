@@ -8,6 +8,22 @@ function iniciarChat(matchId) {
     window.location.href = `chat.html?match=${matchId}`;
 }
 
+// Toggle 'Outros' field visibility in modal
+function toggleOtherItemFieldModal() {
+    const select = document.getElementById('modal-item-select');
+    const otherGroup = document.getElementById('modal-item-other-group');
+    const otherInput = document.getElementById('modal-item-other');
+    
+    if (select && select.value === 'Outros') {
+        otherGroup.style.display = 'flex';
+        otherInput.required = true;
+    } else if (otherGroup) {
+        otherGroup.style.display = 'none';
+        otherInput.required = false;
+        otherInput.value = '';
+    }
+}
+
 // Modal Logic
 function abrirModalNovo() {
     document.getElementById('modal-novo').style.display = 'flex';
@@ -19,7 +35,20 @@ function abrirModalNovo() {
         dynamicFields.innerHTML = `
             <div class="form-group">
                 <label>Item a ser enviado</label>
-                <input type="text" id="modal-item" class="form-input" placeholder="Ex: Chaves do carro" required>
+                <select id="modal-item-select" class="form-input" required onchange="toggleOtherItemFieldModal()">
+                    <option value="" disabled selected>Selecione um item</option>
+                    <option value="Documentos">Documentos</option>
+                    <option value="Chaves">Chaves</option>
+                    <option value="Presentes">Presentes</option>
+                    <option value="Comida Regional">Comida Regional</option>
+                    <option value="Roupas">Roupas</option>
+                    <option value="Eletrônicos Pequenos">Eletrônicos Pequenos</option>
+                    <option value="Outros">Outros...</option>
+                </select>
+            </div>
+            <div class="form-group" id="modal-item-other-group" style="display: none;">
+                <label>Especifique o item</label>
+                <input type="text" id="modal-item-other" class="form-input" placeholder="Digite qual é o item">
             </div>
             <div class="form-group">
                 <label>Urgência do Envio</label>
@@ -62,7 +91,10 @@ async function salvarNovoRegistro(event) {
 
     let leadData = {};
     if (currentUserType === 'sender') {
-        const item = document.getElementById('modal-item').value;
+        const itemSelect = document.getElementById('modal-item-select').value;
+        const itemOther = document.getElementById('modal-item-other') ? document.getElementById('modal-item-other').value : '';
+        const item = itemSelect === 'Outros' ? itemOther : itemSelect;
+        
         const urgency = document.getElementById('modal-urgency').value;
         leadData = { type: 'sender', origin, dest, contact, item, urgency, user_id: session.id };
     } else {

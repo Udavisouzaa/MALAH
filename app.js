@@ -26,6 +26,24 @@ function switchTab(userType) {
     }
 }
 
+// 1.5 Toggle 'Outros' field visibility
+function toggleOtherItemField(formContext) {
+    if (formContext === 'sender') {
+        const select = document.getElementById('sender-item-select');
+        const otherGroup = document.getElementById('sender-item-other-group');
+        const otherInput = document.getElementById('sender-item-other');
+        
+        if (select.value === 'Outros') {
+            otherGroup.style.display = 'flex';
+            otherInput.required = true;
+        } else {
+            otherGroup.style.display = 'none';
+            otherInput.required = false;
+            otherInput.value = '';
+        }
+    }
+}
+
 // 2. Toggle "Como Funciona" workflow tabs
 function toggleWorkflow(userType) {
     const btnSender = document.getElementById('btn-flow-sender');
@@ -88,7 +106,10 @@ async function handleFormSubmit(event, formType) {
     let successMessageText = '';
 
     if (formType === 'sender') {
-        const item = document.getElementById('sender-item').value;
+        const itemSelect = document.getElementById('sender-item-select').value;
+        const itemOther = document.getElementById('sender-item-other').value;
+        const item = itemSelect === 'Outros' ? itemOther : itemSelect;
+        
         const origin = document.getElementById('sender-origin').value;
         const dest = document.getElementById('sender-dest').value;
         const urgency = document.getElementById('sender-urgency').value;

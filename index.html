@@ -88,8 +88,21 @@
                         <p class="form-description">Cadastre o item que precisa enviar e receba propostas de viajantes ainda hoje.</p>
                         
                         <div class="form-group">
-                            <label for="sender-item">O que você quer enviar?</label>
-                            <input type="text" id="sender-item" placeholder="Ex: iPhone 15, Notebook, Documento" required>
+                            <label for="sender-item-select">O que você quer enviar?</label>
+                            <select id="sender-item-select" required onchange="toggleOtherItemField('sender')">
+                                <option value="" disabled selected>Selecione um item</option>
+                                <option value="Documentos">Documentos</option>
+                                <option value="Chaves">Chaves</option>
+                                <option value="Presentes">Presentes</option>
+                                <option value="Comida Regional">Comida Regional</option>
+                                <option value="Roupas">Roupas</option>
+                                <option value="Eletrônicos Pequenos">Eletrônicos Pequenos</option>
+                                <option value="Outros">Outros...</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="sender-item-other-group" style="display: none;">
+                            <label for="sender-item-other">Especifique o item</label>
+                            <input type="text" id="sender-item-other" placeholder="Digite o que é">
                         </div>
                         <div class="form-row">
                             <div class="form-group">
