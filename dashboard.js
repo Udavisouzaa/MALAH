@@ -96,7 +96,11 @@ async function salvarNovoRegistro(event) {
         const item = itemSelect === 'Outros' ? itemOther : itemSelect;
         
         const urgency = document.getElementById('modal-urgency').value;
-        leadData = { type: 'sender', origin, dest, contact, item, urgency, user_id: session.id };
+        
+        // Fix Supabase Error: Map urgency to 'value' column since 'urgency' column doesn't exist
+        const numericValue = urgency === 'urgente' ? 180 : 100;
+        
+        leadData = { type: 'sender', origin, dest, contact, item, value: numericValue, user_id: session.id };
     } else {
         const date = document.getElementById('modal-date').value;
         const company = document.getElementById('modal-company').value;

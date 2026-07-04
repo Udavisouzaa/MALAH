@@ -114,8 +114,11 @@ async function handleFormSubmit(event, formType) {
         const dest = document.getElementById('sender-dest').value;
         const urgency = document.getElementById('sender-urgency').value;
         const contact = document.getElementById('sender-contact').value;
+        
+        // Fix Supabase Error: Map urgency to 'value' column since 'urgency' column doesn't exist
+        const numericValue = urgency === 'urgente' ? 180 : 100;
 
-        leadData = { type: 'sender', item, origin, dest, urgency, contact };
+        leadData = { type: 'sender', item, origin, dest, value: numericValue, contact };
         successMessageText = `Cadastro feito com sucesso! Encontramos viajantes ativos de ${origin} para ${dest}. Você será redirecionado para o WhatsApp para combinar os detalhes.`;
     } else {
         const origin = document.getElementById('traveler-origin').value;
