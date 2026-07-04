@@ -54,7 +54,16 @@ const STORAGE_PREFIX = 'malah_';
 
 const getLocalData = <T>(key: string, defaultValue: T): T => {
   const data = localStorage.getItem(STORAGE_PREFIX + key);
-  return data ? JSON.parse(data) : defaultValue;
+  if (!data) return defaultValue;
+  try {
+    const parsed = JSON.parse(data);
+    if (Array.isArray(defaultValue) && !Array.isArray(parsed)) {
+      return defaultValue;
+    }
+    return parsed;
+  } catch (e) {
+    return defaultValue;
+  }
 };
 
 const setLocalData = <T>(key: string, value: T): void => {
