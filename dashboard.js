@@ -22,8 +22,11 @@ function abrirModalNovo() {
                 <input type="text" id="modal-item" class="form-input" placeholder="Ex: Chaves do carro" required>
             </div>
             <div class="form-group">
-                <label>Valor Declarado (R$)</label>
-                <input type="number" id="modal-value" class="form-input" placeholder="1000" required>
+                <label>Urgência do Envio</label>
+                <select id="modal-urgency" class="form-input" required>
+                    <option value="comum">Comum (Até 3 dias)</option>
+                    <option value="urgente">Urgente (Mesmo Dia)</option>
+                </select>
             </div>
         `;
     } else {
@@ -60,8 +63,8 @@ async function salvarNovoRegistro(event) {
     let leadData = {};
     if (currentUserType === 'sender') {
         const item = document.getElementById('modal-item').value;
-        const value = document.getElementById('modal-value').value;
-        leadData = { type: 'sender', origin, dest, contact, item, value, user_id: session.id };
+        const urgency = document.getElementById('modal-urgency').value;
+        leadData = { type: 'sender', origin, dest, contact, item, urgency, user_id: session.id };
     } else {
         const date = document.getElementById('modal-date').value;
         const company = document.getElementById('modal-company').value;

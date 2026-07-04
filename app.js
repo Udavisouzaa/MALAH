@@ -55,45 +55,29 @@ function updateRangeValue(value) {
 
 // 4. Calculate estimates in real-time
 function calculateEstimates() {
-    const routeSelect = document.getElementById('calc-route');
-    const valueInput = document.getElementById('calc-value');
-    
-    const route = routeSelect.value;
-    const itemValue = Number(valueInput.value);
+    const urgencySelect = document.getElementById('calc-urgency');
+    const urgency = urgencySelect ? urgencySelect.value : 'comum';
 
-    // Business Rules Mocking
-    // Route multipliers (simulating distance and demand)
-    const routeRates = {
-        'FLN-CGH': { baseFee: 80, travelerRewardPercent: 0.65 },
-        'CGH-SDU': { baseFee: 65, travelerRewardPercent: 0.65 },
-        'FLN-SDU': { baseFee: 95, travelerRewardPercent: 0.65 },
-        'GRU-BSB': { baseFee: 110, travelerRewardPercent: 0.60 },
-        'CGH-FLN': { baseFee: 80, travelerRewardPercent: 0.65 },
-        'BSB-FLN': { baseFee: 120, travelerRewardPercent: 0.60 }
-    };
+    let totalSenderCost = 100;
+    let travelerReward = 70;
+    let speedLabel = "Até 3 dias";
 
-    const rateConfig = routeRates[route] || { baseFee: 80, travelerRewardPercent: 0.65 };
-
-    // Taxa de facilitação com base no valor do item (1.5% do valor)
-    const facilitationFee = itemValue * 0.015;
-    
-    // Custo total para o remetente (Taxa base da rota + Taxa de facilitação)
-    const totalSenderCost = rateConfig.baseFee + facilitationFee;
-    
-    // Recompensa do viajante (Percentual da taxa base + incentivo pelo manuseio de valor)
-    const baseReward = rateConfig.baseFee * rateConfig.travelerRewardPercent;
-    const valueBonus = facilitationFee * 0.45; // Viajante recebe 45% da taxa pelo cuidado com o item
-    const travelerReward = baseReward + valueBonus;
+    if (urgency === 'urgente') {
+        totalSenderCost = 180;
+        travelerReward = 130;
+        speedLabel = "Mesmo Dia";
+    }
 
     // Format results to standard Brazilian currency (R$)
     const formattedCost = totalSenderCost.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     const formattedReward = travelerReward.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    const formattedCoverage = itemValue.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
 
     // Update DOM
     document.getElementById('calc-sender-cost').textContent = formattedCost;
     document.getElementById('calc-traveler-reward').textContent = formattedReward;
-    document.getElementById('calc-coverage').textContent = formattedCoverage;
+    
+    const badge = document.getElementById('calc-speed-badge');
+    if (badge) badge.textContent = `Velocidade: ${speedLabel}`;
 }
 
 // 5. Handle submission & persistence
@@ -107,10 +91,10 @@ async function handleFormSubmit(event, formType) {
         const item = document.getElementById('sender-item').value;
         const origin = document.getElementById('sender-origin').value;
         const dest = document.getElementById('sender-dest').value;
-        const value = document.getElementById('sender-value').value;
+        const urgency = document.getElementById('sender-urgency').value;
         const contact = document.getElementById('sender-contact').value;
 
-        leadData = { type: 'sender', item, origin, dest, value, contact };
+        leadData = { type: 'sender', item, origin, dest, urgency, contact };
         successMessageText = `Cadastro feito com sucesso! Encontramos viajantes ativos de ${origin} para ${dest}. Você será redirecionado para o WhatsApp para combinar os detalhes.`;
     } else {
         const origin = document.getElementById('traveler-origin').value;
