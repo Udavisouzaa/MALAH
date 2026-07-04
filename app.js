@@ -97,7 +97,7 @@ function calculateEstimates() {
 }
 
 // 5. Handle submission & persistence
-function handleFormSubmit(event, formType) {
+async function handleFormSubmit(event, formType) {
     event.preventDefault();
 
     let leadData = {};
@@ -123,55 +123,26 @@ function handleFormSubmit(event, formType) {
         successMessageText = `Voo cadastrado! Já temos envios agendados de ${origin} para ${dest} na companhia ${company}. Você será redirecionado para o WhatsApp para ver as encomendas.`;
     }
 
-    // Save lead data in localStorage for demo validation
-    let currentLeads = JSON.parse(localStorage.getItem('malah_leads') || '[]');
-    currentLeads.push(leadData);
-    localStorage.setItem('malah_leads', JSON.stringify(currentLeads));
+    // Change Button State to Loading
+    const btn = event.target.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Processando...';
+    btn.disabled = true;
 
-    // Show success panel
-    const formSender = document.getElementById('form-sender');
-    const formTraveler = document.getElementById('form-traveler');
-    const successState = document.getElementById('form-success');
-    const successText = document.getElementById('success-text');
+    // Save lead data using db object from supabaseClient.js
+    const result = await db.salvarLead(leadData, formType);
 
-    formSender.style.display = 'none';
-    formSender.classList.remove('active');
-    formTraveler.style.display = 'none';
-    formTraveler.classList.remove('active');
+    btn.textContent = originalText;
+    btn.disabled = false;
 
-    successText.textContent = successMessageText;
-    successState.style.display = 'flex';
-
-    // Configure WhatsApp URL redirect
-    const waPhone = '5548992084726';
-    let waText = '';
-    if (formType === 'sender') {
-        waText = `Olá Davi! Acabei de me cadastrar na MALAH para enviar um item.\n\n` +
-                 `📦 Produto: ${leadData.item}\n` +
-                 `📍 Origem: ${leadData.origin}\n` +
-                 `🏁 Destino: ${leadData.dest}\n` +
-                 `💰 Valor Estimado: R$ ${leadData.value}\n` +
-                 `📱 Meu WhatsApp: ${leadData.contact}\n\n` +
-                 `Quero combinar os detalhes do envio!`;
-    } else {
-        waText = `Olá Davi! Acabei de cadastrar meu voo na MALAH para levar encomendas.\n\n` +
-                 `✈️ Rota: ${leadData.origin} ➔ ${leadData.dest}\n` +
-                 `📅 Data do Voo: ${leadData.date}\n` +
-                 `🏢 Companhia: ${leadData.company}\n` +
-                 `📱 Meu WhatsApp: ${leadData.contact}\n\n` +
-                 `Quero ver as encomendas de valor disponíveis para a minha rota!`;
+    if (result.error) {
+        console.error("Erro ao salvar:", result.error);
+        alert("Ocorreu um erro ao processar seu cadastro. Tente novamente.");
+        return;
     }
 
-    const waUrl = `https://api.whatsapp.com/send?phone=${waPhone}&text=${encodeURIComponent(waText)}`;
-    const waBtn = document.getElementById('btn-whatsapp-redirect');
-    if (waBtn) {
-        waBtn.href = waUrl;
-    }
-
-    // Auto-redirect to WhatsApp after 2.5 seconds
-    setTimeout(() => {
-        window.location.href = waUrl;
-    }, 2500);
+    // Redirect to Dashboard
+    window.location.href = `dashboard.html?userType=${formType}`;
 }
 
 // 6. Reset form to switch back from success state
