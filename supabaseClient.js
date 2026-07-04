@@ -5,8 +5,8 @@
 // Configuração do Supabase
 // IMPORTANTE: Davi, você precisará criar um projeto gratuito em supabase.com
 // e substituir essas variáveis pelas chaves reais do seu projeto.
-const SUPABASE_URL = 'https://sua-url-aqui.supabase.co';
-const SUPABASE_ANON_KEY = 'sua-chave-anon-aqui';
+const SUPABASE_URL = 'https://gptkqwkdajclgiyhardo.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_qf-AcMYaIMkMAJxbztTVnw_vqe56lf7';
 
 let supabaseClient = null;
 
