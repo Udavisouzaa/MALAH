@@ -168,6 +168,15 @@
         </div>
     </div>
 
+    <!-- Toast de Notificação -->
+    <div id="toast-notification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: var(--accent-purple); color: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 9999; transform: translateY(100px); transition: transform 0.3s ease;">
+        <strong style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Nova Mensagem!
+        </strong>
+        <div style="font-size: 0.9em; margin-top: 5px;">Acesse a aba Matches para responder.</div>
+    </div>
+
     <!-- Supabase CDN and Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabaseClient.js"></script>

@@ -237,9 +237,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function checkNotifications() {
         const { data } = await db.verificarNovasMensagens(session.id);
         const badgeMsg = document.getElementById('msg-badge');
+        const toast = document.getElementById('toast-notification');
+        
         if (badgeMsg) {
             if (data && data.length > 0) {
                 badgeMsg.style.display = 'inline-block';
+                
+                // Show Toast if it's not already visible
+                if (toast && toast.style.display === 'none') {
+                    toast.style.display = 'block';
+                    setTimeout(() => toast.style.transform = 'translateY(0)', 50); // slide up
+                    
+                    // Hide after 5 seconds
+                    setTimeout(() => {
+                        toast.style.transform = 'translateY(100px)'; // slide down
+                        setTimeout(() => toast.style.display = 'none', 300);
+                    }, 5000);
+                }
             } else {
                 badgeMsg.style.display = 'none';
             }
