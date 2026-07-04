@@ -165,8 +165,14 @@ a {
     color: var(--text-main);
 }
 
-.mobile-menu-btn {
+.mobile-header-actions {
     display: none;
+    align-items: center;
+    gap: 12px;
+}
+
+.mobile-menu-btn {
+    display: block; /* now wrapped in mobile-header-actions which handles visibility */
     background: none;
     border: none;
     color: var(--text-main);
@@ -1028,8 +1034,8 @@ input[type=range]::-webkit-slider-thumb:hover {
         animation: slideDown 0.3s ease-out;
     }
     
-    .mobile-menu-btn {
-        display: block;
+    .mobile-header-actions {
+        display: flex;
     }
     
     .mobile-only {
