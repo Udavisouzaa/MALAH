@@ -50,21 +50,32 @@ async function handleAuth(event) {
             const name = document.getElementById('auth-name').value;
             const type = document.getElementById('auth-type').value;
             
-            // Mock Register Session
+            // Save to users list
             const userSession = { email, name, type, id: 'user_' + Math.random().toString(36).substr(2, 9) };
+            let users = JSON.parse(localStorage.getItem('malah_users') || '{}');
+            users[email] = userSession;
+            localStorage.setItem('malah_users', JSON.stringify(users));
+
             localStorage.setItem('malah_session', JSON.stringify(userSession));
             
             window.location.href = `dashboard.html`;
         } else {
             // Mock Login
             if (email && password) {
-                // Generates a new session for the logged in user
-                const userSession = { 
-                    email, 
-                    name: email.split('@')[0], // Usa o início do email como nome
-                    type: 'sender', // Default mock type
-                    id: 'user_' + Math.random().toString(36).substr(2, 9) 
-                };
+                let users = JSON.parse(localStorage.getItem('malah_users') || '{}');
+                let userSession = users[email];
+                
+                if (!userSession) {
+                    userSession = { 
+                        email, 
+                        name: email.split('@')[0], 
+                        type: 'sender', 
+                        id: 'user_' + Math.random().toString(36).substr(2, 9) 
+                    };
+                    users[email] = userSession;
+                    localStorage.setItem('malah_users', JSON.stringify(users));
+                }
+
                 localStorage.setItem('malah_session', JSON.stringify(userSession));
                 
                 window.location.href = `dashboard.html`;
