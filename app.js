@@ -137,7 +137,7 @@ async function handleFormSubmit(event, formType) {
 
     if (result.error) {
         console.error("Erro ao salvar:", result.error);
-        alert("Ocorreu um erro ao processar seu cadastro. Tente novamente.");
+        alert("Erro do banco de dados: " + (result.error.message || JSON.stringify(result.error)));
         return;
     }
 
