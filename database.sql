@@ -42,6 +42,9 @@ CREATE POLICY "Permitir insert em trips" ON public.trips FOR INSERT TO anon WITH
 CREATE POLICY "Permitir insert em shipments" ON public.shipments FOR INSERT TO anon WITH CHECK (true);
 CREATE POLICY "Permitir insert em messages" ON public.messages FOR INSERT TO anon WITH CHECK (true);
 
-CREATE POLICY "Permitir select em trips" ON public.trips FOR SELECT TO anon USING (true);
 CREATE POLICY "Permitir select em shipments" ON public.shipments FOR SELECT TO anon USING (true);
 CREATE POLICY "Permitir select em messages" ON public.messages FOR SELECT TO anon USING (true);
+
+-- 5. Adicionar coluna user_id nas tabelas existentes (Fase 6)
+ALTER TABLE public.trips ADD COLUMN IF NOT EXISTS user_id text;
+ALTER TABLE public.shipments ADD COLUMN IF NOT EXISTS user_id text;

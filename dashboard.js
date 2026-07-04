@@ -59,11 +59,11 @@ async function salvarNovoRegistro(event) {
     if (currentUserType === 'sender') {
         const item = document.getElementById('modal-item').value;
         const value = document.getElementById('modal-value').value;
-        leadData = { type: 'sender', origin, dest, contact, item, value };
+        leadData = { type: 'sender', origin, dest, contact, item, value, user_id: session.id };
     } else {
         const date = document.getElementById('modal-date').value;
         const company = document.getElementById('modal-company').value;
-        leadData = { type: 'traveler', origin, dest, contact, date, company };
+        leadData = { type: 'traveler', origin, dest, contact, date, company, user_id: session.id };
     }
 
     const { error } = await db.salvarLead(leadData, currentUserType);
@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
     }
 
-    // Fetch Data
-    const { data, error } = await db.listarRegistros(userType);
+    // Fetch Data (Only mine)
+    const { data, error } = await db.listarMeusRegistros(userType, session.id);
 
     if (error) {
         tableBody.innerHTML = `<tr><td colspan="4" style="color: #ef4444; padding: 20px;">Erro ao carregar dados.</td></tr>`;
@@ -192,24 +192,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (data && data.length > 0) {
         const oppositeType = userType === 'sender' ? 'traveler' : 'sender';
-        const resultOpp = await db.listarRegistros(oppositeType);
+        const resultOpp = await db.listarTodosRegistros(oppositeType);
         const oppositeData = resultOpp.data || [];
         
         if (oppositeData && oppositeData.length > 0) {
-            const matches = oppositeData.filter(opp => {
-                return data.some(my => my.origin === opp.origin && my.dest === opp.dest);
+            const matches = [];
+            oppositeData.forEach(opp => {
+                const myMatch = data.find(my => my.origin === opp.origin && my.dest === opp.dest);
+                if (myMatch) {
+                    matches.push({ opp, myMatch });
+                }
             });
 
             if (matches.length > 0) {
                 matchesBody.innerHTML = '';
                 matches.forEach(match => {
+                    const opp = match.opp;
+                    const my = match.myMatch;
                     const tr = document.createElement('tr');
-                    const desc = oppositeType === 'sender' ? (match.item || 'Pacote de Valor') : `Voo: ${match.date}`;
+                    const desc = oppositeType === 'sender' ? (opp.item || 'Pacote de Valor') : `Voo: ${opp.date}`;
+                    
+                    // Garantir que a Sala de Chat seja a mesma para ambos (sempre: IDRemetente_IDViajante)
+                    const matchRoomId = userType === 'sender' ? my.id + '_' + opp.id : opp.id + '_' + my.id;
+                    
                     tr.innerHTML = `
                         <td><strong>${desc}</strong></td>
-                        <td>${match.origin}</td>
-                        <td>${match.dest}</td>
-                        <td><button class="btn btn-sm btn-primary" onclick="iniciarChat('${match.id}')">Iniciar Chat</button></td>
+                        <td>${opp.origin}</td>
+                        <td>${opp.dest}</td>
+                        <td><button class="btn btn-sm btn-primary" onclick="iniciarChat('${matchRoomId}')">Iniciar Chat</button></td>
                     `;
                     matchesBody.appendChild(tr);
                 });
@@ -220,6 +230,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             matchesBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 20px;">Nenhum match encontrado no momento. Avisaremos quando surgir!</td></tr>`;
         }
     }
+
+    // Polling de Notificações
+    async function checkNotifications() {
+        const { data } = await db.verificarNovasMensagens(session.id);
+        const badgeMsg = document.getElementById('msg-badge');
+        if (badgeMsg) {
+            if (data && data.length > 0) {
+                badgeMsg.style.display = 'inline-block';
+            } else {
+                badgeMsg.style.display = 'none';
+            }
+        }
+    }
+    setInterval(checkNotifications, 5000);
 
     // Logout Logic
     const logoutBtn = document.querySelector('.nav-logout');
