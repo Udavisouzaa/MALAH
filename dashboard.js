@@ -262,6 +262,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     setInterval(checkNotifications, 5000);
 
+    // Switch Mode Logic
+    const switchBtn = document.getElementById('nav-switch-mode');
+    const switchLabel = document.getElementById('switch-mode-label');
+    if (userType === 'sender') {
+        if (switchLabel) switchLabel.textContent = 'Mudar p/ Viajante';
+    } else {
+        if (switchLabel) switchLabel.textContent = 'Mudar p/ Remetente';
+    }
+    
+    if (switchBtn) {
+        switchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const newType = userType === 'sender' ? 'traveler' : 'sender';
+            session.type = newType;
+            localStorage.setItem('malah_session', JSON.stringify(session));
+            
+            // Also update in users list so it persists across logins
+            let users = JSON.parse(localStorage.getItem('malah_users') || '{}');
+            if (users[session.email]) {
+                users[session.email].type = newType;
+                localStorage.setItem('malah_users', JSON.stringify(users));
+            }
+            
+            window.location.reload();
+        });
+    }
+
     // Logout Logic
     const logoutBtn = document.querySelector('.nav-logout');
     if (logoutBtn) {
