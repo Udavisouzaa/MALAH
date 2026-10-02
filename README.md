@@ -1,20 +1,23 @@
-# MALAH
+# MALAH → Malotex
 
-**Etapa inicial do projeto que evoluiu para [Malotex](https://github.com/Udavisouzaa/flydrop).** Este repositório guarda um experimento de landing page e interface para a ideia de entregas por viajantes. Não é outra startup nem um serviço independente em operação.
+A **MALAH** foi uma etapa inicial da ideia que evoluiu para [Malotex](https://github.com/Udavisouzaa/flydrop). Este repositório documenta um experimento de produto e interface, não outra startup nem um serviço independente.
 
-## Evolução do projeto
+## Página pública
 
-A MALAH foi uma exploração anterior do conceito. O produto passou por outras versões e nomes; **Malotex é o nome definitivo**. O desenvolvimento mais recente está no [repositório técnico flydrop](https://github.com/Udavisouzaa/flydrop), que conserva esse nome por causa das integrações existentes. Este repositório permanece como registro da etapa MALAH.
+A [página da MALAH](https://malah.vercel.app/) funciona como estudo de caso: apresenta o problema explorado, o que foi prototipado, a sequência dos nomes e as perguntas que ainda precisavam ser validadas. Ela não oferece cadastro, reservas, preços ou serviço de envio. O projeto mais recente está no repositório técnico [flydrop](https://github.com/Udavisouzaa/flydrop), embora o nome definitivo do produto seja Malotex.
 
-## O que este protótipo mostra
+## Código histórico
 
-- Proposta de valor, fluxo visual e páginas iniciais da ideia.
-- Exercícios de interface e comunicação de uma hipótese de marketplace.
+As telas antigas de cadastro, painel, simulação e o módulo de dados continuam no histórico do repositório para mostrar a evolução do protótipo. A aplicação pública atual não importa esses fluxos. **Não reutilize os mecanismos de autenticação e pagamento deste código legado em produção:** eles não foram revisados para esse uso.
 
-## Limites
+## O que falta validar no conceito
 
-As métricas, ganhos estimados, garantias, verificações e prazos exibidos na landing page são textos de prototipagem. Não há dados públicos neste repositório que comprovem essas afirmações. Não use este site para contratar serviços ou tomar decisões financeiras. Links de termos, privacidade e suporte também precisam ser concluídos antes de qualquer operação real.
+- Demanda e compatibilidade entre trajetos e necessidades de envio.
+- Identidade, bilhetes e itens permitidos.
+- Pagamentos, suporte, disputas e reembolsos.
+
+Nenhuma métrica de satisfação, prazo, ganhos ou segurança foi comprovada por este repositório.
 
 ## English
 
-MALAH was an early exploration of the project that later became [Malotex](https://github.com/Udavisouzaa/flydrop). It is not a separate startup or a validated service. Claims shown on the landing page are unverified prototype copy.
+MALAH was an early exploration of the project that became [Malotex](https://github.com/Udavisouzaa/flydrop). The public page is now a case study, with no signup or delivery service. Legacy prototype code remains for historical context and should not be used as production authentication or payment code.
