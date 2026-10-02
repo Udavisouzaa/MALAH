@@ -53,14 +53,14 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             onClick={() => onStart('remetente')} 
             className="px-5 py-2 rounded-lg text-sm font-medium hover:text-brand-glow transition-colors text-gray-400"
           >
-            Entrar
+            Entrar no protótipo
           </button>
           <button 
             id="nav-register-btn"
             onClick={() => onStart('remetente')} 
             className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white glow-btn flex items-center gap-1"
           >
-            Começar <ArrowRight className="w-4 h-4" />
+            Explorar <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </header>
