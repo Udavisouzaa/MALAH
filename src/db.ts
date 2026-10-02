@@ -146,98 +146,16 @@ export const setActiveUserSession = (user: UserProfile | null): void => {
 export const db = {
   // 1. AUTHENTICATION / USER PROFILE
   async registerUser(email: string, name: string, whatsapp: string, role: 'remetente' | 'viajante'): Promise<UserProfile> {
-    const cleanedWhatsapp = whatsapp.replace(/\D/g, ''); // keep only numbers
-    
-    if (supabase) {
-      try {
-        // Sign up user via Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-          email,
-          password: 'malah-temp-password-1234', // Since it's an MVP, we can bypass complex password setups
-          options: {
-            data: { name, whatsapp: cleanedWhatsapp, role }
-          }
-        });
-
-        if (authError) throw authError;
-
-        const userId = authData.user?.id || 'sup-' + Math.random().toString(36).substr(2, 9);
-        const profile: UserProfile = {
-          id: userId,
-          email,
-          name,
-          whatsapp: cleanedWhatsapp,
-          role
-        };
-
-        // Insert into custom profiles table
-        const { error: dbError } = await supabase
-          .from('profiles')
-          .upsert({ id: userId, email, name, whatsapp: cleanedWhatsapp, role });
-
-        if (dbError) {
-          console.warn("Could not insert profile into Supabase profiles table, fallback active:", dbError);
-        }
-
-        return profile;
-      } catch (err) {
-        console.error('Supabase registration error, falling back to local database:', err);
-      }
-    }
-
-    // Local Storage fallback
-    const users = getLocalData<UserProfile[]>('users', []);
-    
-    // Check if user already exists
-    const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    if (existing) {
-      return existing;
-    }
-
-    const newUser: UserProfile = {
-      id: 'usr-' + Math.random().toString(36).substr(2, 9),
-      email: email.toLowerCase(),
-      name,
-      whatsapp: cleanedWhatsapp,
-      role
-    };
-
-    users.push(newUser);
-    setLocalData('users', users);
-    return newUser;
+    void email;
+    void name;
+    void whatsapp;
+    void role;
+    throw new Error('Fluxo legado de cadastro desativado. Consulte o Malotex para a versão atual.');
   },
 
   async loginUser(email: string): Promise<UserProfile> {
-    if (supabase) {
-      try {
-        // Query profile from profiles table
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('email', email.toLowerCase())
-          .single();
-
-        if (!error && data) {
-          return {
-            id: data.id,
-            email: data.email,
-            name: data.name,
-            whatsapp: data.whatsapp,
-            role: data.role
-          };
-        }
-      } catch (err) {
-        console.error('Supabase login error, falling back to local database:', err);
-      }
-    }
-
-    // Local Storage fallback
-    const users = getLocalData<UserProfile[]>('users', []);
-    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    if (!user) {
-      throw new Error('Usuário não encontrado. Cadastre-se primeiro!');
-    }
-    return user;
+    void email;
+    throw new Error('Fluxo legado de autenticação desativado. Consulte o Malotex para a versão atual.');
   },
 
   async updateUserRole(userId: string, newRole: 'remetente' | 'viajante'): Promise<UserProfile> {
