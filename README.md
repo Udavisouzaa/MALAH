@@ -1,6 +1,10 @@
 # MALAH
 
-Experimento de landing page para uma ideia de entregas por viajantes. Este repositório registra uma exploração de produto e comunicação, não a comprovação de um serviço em operação.
+**Etapa inicial do projeto que evoluiu para [Malotex](https://github.com/Udavisouzaa/flydrop).** Este repositório guarda um experimento de landing page e interface para a ideia de entregas por viajantes. Não é outra startup nem um serviço independente em operação.
+
+## Evolução do projeto
+
+A MALAH foi uma exploração anterior do conceito. O produto passou por outras versões e nomes; **Malotex é o nome definitivo**. O desenvolvimento mais recente está no [repositório técnico flydrop](https://github.com/Udavisouzaa/flydrop), que conserva esse nome por causa das integrações existentes. Este repositório permanece como registro da etapa MALAH.
 
 ## O que este protótipo mostra
 
@@ -13,4 +17,4 @@ As métricas, ganhos estimados, garantias, verificações e prazos exibidos na l
 
 ## English
 
-MALAH is an exploratory landing page for a traveler delivery concept. Claims shown in the page are unverified prototype copy; this repository does not establish a live or validated service.
+MALAH was an early exploration of the project that later became [Malotex](https://github.com/Udavisouzaa/flydrop). It is not a separate startup or a validated service. Claims shown on the landing page are unverified prototype copy.
