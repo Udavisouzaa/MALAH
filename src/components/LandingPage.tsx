@@ -77,7 +77,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs text-brand-glow border-brand-purple/25 shadow-inner"
           >
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            <span>O primeiro marketplace P2P de bagagem aérea do Brasil</span>
+            <span>Protótipo histórico da ideia que evoluiu para Malotex</span>
           </motion.div>
 
           <motion.h1 
@@ -86,7 +86,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none text-white"
           >
-            Envie encomendas na <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-glow to-brand-cyan glow-text">velocidade de um avião.</span>
+            Uma ideia para envios com <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-glow to-brand-cyan glow-text">viajantes.</span>
           </motion.h1>
 
           <motion.p 
@@ -95,7 +95,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-400 text-lg max-w-xl leading-relaxed font-light"
           >
-            Conectamos quem precisa enviar objetos de extrema urgência com viajantes frequentes que possuem espaço ocioso nas malas. Seguro, ágil e ecológico.
+            A MALAH explorou a conexão entre pessoas que precisam enviar itens e viajantes com espaço na bagagem. Esta página é um protótipo histórico, sem serviço de envio em operação.
           </motion.p>
 
           <motion.div 
@@ -109,7 +109,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               onClick={() => onStart('remetente')}
               className="px-8 py-4 rounded-xl font-display font-bold text-white glow-btn flex items-center justify-center gap-3 group text-base"
             >
-              Quero Enviar um Item
+              Explorar fluxo de envio
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </button>
             
@@ -118,7 +118,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               onClick={() => onStart('viajante')}
               className="px-8 py-4 rounded-xl font-display font-bold text-gray-300 hover:text-white glass-panel glass-panel-hover flex items-center justify-center gap-3 text-base"
             >
-              Quero Viajar e Lucrar
+              Explorar fluxo de viajante
               <Plane className="w-5 h-5 text-brand-cyan" />
             </button>
           </motion.div>
@@ -131,16 +131,16 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             className="grid grid-cols-3 gap-6 pt-8 border-t border-white/5"
           >
             <div>
-              <div className="font-display text-2xl lg:text-3xl font-black text-brand-glow">98%</div>
-              <div className="text-xs text-gray-400 font-medium">De Satisfação</div>
+              <div className="font-display text-2xl lg:text-3xl font-black text-brand-glow">MALAH</div>
+              <div className="text-xs text-gray-400 font-medium">Etapa inicial</div>
             </div>
             <div>
-              <div className="font-display text-2xl lg:text-3xl font-black text-brand-cyan">12h</div>
-              <div className="text-xs text-gray-400 font-medium">Prazo Médio Brasil</div>
+              <div className="font-display text-2xl lg:text-3xl font-black text-brand-cyan">Malotex</div>
+              <div className="text-xs text-gray-400 font-medium">Nome atual</div>
             </div>
             <div>
-              <div className="font-display text-2xl lg:text-3xl font-black text-white">R$ 5k+</div>
-              <div className="text-xs text-gray-400 font-medium">Ganhos de Viajantes/mês</div>
+              <div className="font-display text-2xl lg:text-3xl font-black text-white">Protótipo</div>
+              <div className="text-xs text-gray-400 font-medium">Sem operação</div>
             </div>
           </motion.div>
         </div>
@@ -156,13 +156,14 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             {/* Absolute indicator */}
             <div className="absolute top-4 right-4 text-xs font-mono text-gray-500 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-              Simulador Ativo
+              Simulação ilustrativa
             </div>
 
             <h3 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-brand-glow" />
-              Simulador de Ganhos e Custos
+              Exemplo conceitual de valores
             </h3>
+            <p className="text-xs text-gray-400 mb-6">Valores fictícios para ilustrar a interface. Não são preços, prazos, comissões ou ganhos oferecidos.</p>
 
             {/* Step 1: Item Category */}
             <div className="space-y-3 mb-6">
@@ -205,7 +206,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
                   <span className="text-xs font-semibold text-gray-300 flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" /> Comum
                   </span>
-                  <span className="text-[11px] text-gray-400 mt-1">Até 3 dias úteis</span>
+                  <span className="text-[11px] text-gray-400 mt-1">Prazo não definido</span>
                 </button>
 
                 <button
@@ -219,7 +220,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
                   <span className="text-xs font-semibold text-brand-glow flex items-center gap-1">
                     <Flame className="w-3.5 h-3.5 text-orange-400" /> Urgente
                   </span>
-                  <span className="text-[11px] text-gray-400 mt-1">Mesmo Dia (Voo)</span>
+                  <span className="text-[11px] text-gray-400 mt-1">Prazo não definido</span>
                 </button>
 
               </div>
@@ -228,15 +229,15 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             {/* Pricing Results */}
             <div className="bg-brand-neon/20 border border-brand-purple/10 rounded-2xl p-5 mb-6 space-y-4">
               <div className="flex justify-between items-center pb-3 border-b border-white/5">
-                <span className="text-sm text-gray-300">Custo do Remetente</span>
+                <span className="text-sm text-gray-300">Valor hipotético do envio</span>
                 <span className="font-display text-2xl font-black text-white glow-text">
                   R$ {totalCost}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <div>
-                  <span className="text-sm text-brand-cyan font-semibold block">Viajante ganha</span>
-                  <span className="text-[10px] text-gray-400">70% de comissão garantida</span>
+                  <span className="text-sm text-brand-cyan font-semibold block">Parcela hipotética do viajante</span>
+                  <span className="text-[10px] text-gray-400">70% usados apenas nesta simulação</span>
                 </div>
                 <span className="font-display text-2xl font-black text-brand-cyan">
                   R$ {travelerEarnings}
@@ -249,7 +250,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               onClick={() => onStart('remetente')}
               className="w-full py-4 rounded-xl font-display font-bold text-white glow-btn text-center text-sm"
             >
-              Garantir Envio Agora
+              Explorar fluxo do protótipo
             </button>
           </div>
         </motion.div>
@@ -259,10 +260,10 @@ export default function LandingPage({ onStart }: LandingPageProps) {
       <section id="features" className="max-w-7xl mx-auto px-6 pt-24">
         <div className="text-center max-w-xl mx-auto mb-16 space-y-3">
           <h2 className="font-display text-3xl font-black tracking-tight text-white">
-            Por que escolher a MALAH?
+            O que a ideia pretendia resolver?
           </h2>
           <p className="text-gray-400 text-sm">
-            Criamos uma camada de confiança e processos eficientes para garantir total tranquilidade no seu envio ou viagem.
+            As funcionalidades abaixo eram hipóteses de produto. Sua disponibilidade e eficácia não foram comprovadas neste protótipo.
           </p>
         </div>
 
@@ -271,9 +272,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             <div className="w-10 h-10 rounded-xl bg-brand-purple/20 flex items-center justify-center text-brand-glow">
               <Shield className="w-5 h-5" />
             </div>
-            <h4 className="font-display text-lg font-bold text-white">Verificação Rigorosa</h4>
+            <h4 className="font-display text-lg font-bold text-white">Identidade e bilhetes</h4>
             <p className="text-gray-400 text-sm leading-relaxed font-light">
-              Viajantes passam por dupla validação de identidade e vinculação direta do bilhete aéreo verificado pela nossa equipe.
+              Hipótese de validar a identidade dos viajantes e os bilhetes. Este protótipo não comprova uma verificação ativa.
             </p>
           </div>
 
@@ -281,9 +282,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             <div className="w-10 h-10 rounded-xl bg-brand-cyan/20 flex items-center justify-center text-brand-cyan">
               <Compass className="w-5 h-5" />
             </div>
-            <h4 className="font-display text-lg font-bold text-white">Rastreabilidade Total</h4>
+            <h4 className="font-display text-lg font-bold text-white">Acompanhamento da viagem</h4>
             <p className="text-gray-400 text-sm leading-relaxed font-light">
-              Saiba exatamente quando o viajante está embarcando, voando e pronto para efetuar a entrega no aeroporto de destino.
+              Ideia de acompanhar as etapas da viagem e da entrega. Este protótipo não oferece rastreamento em tempo real.
             </p>
           </div>
 
@@ -291,9 +292,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400">
               <CheckCircle2 className="w-5 h-5" />
             </div>
-            <h4 className="font-display text-lg font-bold text-white">Pagamento Garantido</h4>
+            <h4 className="font-display text-lg font-bold text-white">Pagamentos e repasses</h4>
             <p className="text-gray-400 text-sm leading-relaxed font-light">
-              O remetente paga na plataforma e o valor é custodiado de forma segura, sendo liberado ao viajante imediatamente no ato da entrega.
+              O fluxo de pagamento e repasse era uma hipótese. Custódia, segurança e liberação de valores não foram validadas neste protótipo.
             </p>
           </div>
         </div>
@@ -301,11 +302,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
 
       {/* Simple Footer */}
       <footer className="max-w-7xl mx-auto px-6 mt-24 pt-8 border-t border-white/5 text-center text-xs text-gray-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div>© 2026 MALAH Technologies Inc. Todos os direitos reservados.</div>
+        <div>MALAH — protótipo histórico, etapa anterior do Malotex.</div>
         <div className="flex gap-6">
-          <a href="#" className="hover:text-gray-300">Termos de Uso</a>
-          <a href="#" className="hover:text-gray-300">Privacidade</a>
-          <a href="#" className="hover:text-gray-300">Suporte</a>
+          <a href="https://github.com/Udavisouzaa/flydrop" className="hover:text-gray-300">Conheça o projeto atual: Malotex</a>
         </div>
       </footer>
 
